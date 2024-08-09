@@ -1,7 +1,9 @@
-# next-js-fullstack
+# Next-js-fullstack App
 
 We are creating fullstack application using
-1. Next JS
-2. MongoDB
-3. ZOD for validation
-4. Auth Js for authentication
+1. Next JS and typscript
+2. MongoDB as database
+3. Mongoose for ORM-Object relational mapper
+4. ZOD for validation
+5. Auth Js for authentication
+6. Tailwind and Semantic ui 
