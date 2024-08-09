@@ -1,4 +1,4 @@
-# Next-js-fullstack App
+# Next-js-fullstack app
 
 We are creating fullstack application using
 1. Next JS and typscript
