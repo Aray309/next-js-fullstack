@@ -15,12 +15,12 @@ export async function sendVerificationEmail(
       react: VerificationEmail({ username, otp: verifyCode }),
     });
     return {
-      status: true,
+      success: true,
       message: "Email verification code send successful",
     };
   } catch (error) {
     return {
-      status: false,
+      success: false,
       message: "Email verification could not send email",
     };
   }
