@@ -1,7 +1,8 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/user.model";
 import bcrypt from "bcryptjs";
-import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+import { sendVerificationEmail } from "@/helpers/verification/sendVerificationEmail";
+import { otpGenerator as OtpGenerator } from "@/helpers/verification/otpGenerater";
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
     }
 
     const existingUserByEmail = await UserModel.findOne({ email });
-    let verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+    let verifyCode = OtpGenerator();
 
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
