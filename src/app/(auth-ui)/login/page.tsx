@@ -32,7 +32,6 @@ const Login = () => {
       password: loginInput.password,
     });
 
-    console.log("RESULT", result);
     if (result?.error) {
       if (result.error === "CredentialsSignin") {
         toast.error("Login failed", {
@@ -104,7 +103,7 @@ const Login = () => {
               type="submit"
               className="w-full py-2 px-4 bg-black text-white font-semibold rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              Signup
+              Signin
             </button>
           </div>
           <p className="text-center text-sm text-gray-600">

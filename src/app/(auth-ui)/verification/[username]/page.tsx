@@ -28,7 +28,7 @@ const UserVerification = () => {
         username: params.username,
         code,
       });
-      console.log("Before Toast", response);
+
       toast.success("Verification successful", {
         autoClose: 3000,
         position: "top-center",
