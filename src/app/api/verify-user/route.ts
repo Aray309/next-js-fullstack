@@ -25,6 +25,10 @@ export async function POST(request: Request) {
     if (isVerified && expiryCodeStatus) {
       searchUsername.isVerified = true;
       await searchUsername.save();
+      return Response.json(
+        { success: true, message: "Account verified successfully" },
+        { status: 200 }
+      );
     } else if (!isVerified) {
       return Response.json(
         {

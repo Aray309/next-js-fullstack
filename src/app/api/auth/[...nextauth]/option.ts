@@ -1,13 +1,13 @@
 import { NextAuthOptions } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/user.model";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    Credentials({
-      id: "credential",
+    CredentialsProvider({
+      id: "credentials",
       name: "Credentials",
       //This creditial will use by Auth js to develop html page having username & password
       credentials: {
@@ -23,8 +23,8 @@ export const authOptions: NextAuthOptions = {
             //Due to ES-6 we will not cover the last for destructure
             //i.e email: credentials?.identifier.email can be written as email: credentials?.identifier
             $or: [
-              { email: credentials?.identifier },
-              { username: credentials?.identifier },
+              { email: credentials?.email },
+              { username: credentials?.username },
             ],
           });
           if (!user) {
@@ -76,6 +76,6 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/sign-in",
+    signIn: "/login",
   },
 };

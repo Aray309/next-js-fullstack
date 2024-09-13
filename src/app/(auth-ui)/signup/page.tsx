@@ -111,11 +111,13 @@ const Signup = () => {
       const response = await axios.post<ApiResponse>("/api/sign-up", data);
 
       toast.success(response.data.message, {
-        autoClose: 5000,
+        autoClose: 3000,
         position: "top-center",
       });
 
-      // router.replace(`/verify/${signupData.username}`);
+      setTimeout(() => {
+        router.replace(`/verification/${signupData.username}`);
+      }, 3000);
 
       setIsSubmitting(false);
     } catch (error) {
@@ -241,7 +243,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full py-2 px-4 bg-black text-white font-semibold rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {isSubmitting ? (
                 <>
