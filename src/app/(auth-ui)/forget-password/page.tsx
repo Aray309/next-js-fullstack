@@ -9,7 +9,7 @@ import ForgetPasswordSchema, {
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
 const ForgetPassword = () => {
@@ -25,37 +25,6 @@ const ForgetPassword = () => {
 
   const router = useRouter();
 
-  //     (async () => {
-  //       if (debounceUsername) {
-  //         setCheckingUsername(true);
-  //         setUsernameMessage("");
-  //         try {
-  //           const response = await axios.get<ApiResponse>(
-  //             `api/unique-user?username=${debounceUsername}`
-  //           );
-  //           toast.success(response.data.message, {
-  //             autoClose: 1000,
-  //             position: "top-center",
-  //           });
-  //           setUsernameMessage(response.data.message);
-  //         } catch (error) {
-  //           const axiosError = error as AxiosError<ApiResponse>;
-  //           toast.error(
-  //             axiosError.response?.data.message ?? "Error checking username",
-  //             {
-  //               autoClose: 1000,
-  //               position: "top-center",
-  //             }
-  //           );
-  //           setUsernameMessage(
-  //             axiosError.response?.data.message ?? "Error checking username"
-  //           );
-  //         } finally {
-  //           setCheckingUsername(false);
-  //         }
-  //       }
-  //     })();
-  //   }, [debounceUsername]);
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
