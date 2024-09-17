@@ -26,6 +26,8 @@ export interface User extends Document {
   isVerified: boolean;
   isAcceptingMessage: boolean;
   messages: Message[];
+  resetVerifyCode: string;
+  resetVerifyCodeExpiration: Date;
 }
 
 const UserSchema: Schema<User> = new Schema({
@@ -65,6 +67,12 @@ const UserSchema: Schema<User> = new Schema({
     default: true,
   },
   messages: [MessageSchema],
+  resetVerifyCode: {
+    type: String,
+  },
+  resetVerifyCodeExpiration: {
+    type: Date,
+  },
 });
  // Next Js is edge framework so we have to check everytime before connect
 const UserModel =

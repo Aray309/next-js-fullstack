@@ -1,8 +1,7 @@
 import UserModel from "@/model/user.model";
 import dbConnect from "@/lib/dbConnect";
-import bcrypt from "bcryptjs"; // For hashing passwords
+import bcrypt from "bcryptjs";
 
-// Helper function to hash the password
 const hashPassword = async (password: string) => {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);
@@ -11,52 +10,44 @@ const hashPassword = async (password: string) => {
 export async function POST(request: Request) {
   await dbConnect();
   try {
-    const { email, newPassword } = await request.json();
-    if (newPassword.length < 6) {
+    const { email, otp, newPassword } = await request.json();
+    if (!email || !otp || !newPassword) {
       return new Response(
         JSON.stringify({
           success: false,
-          message: "The length of password should be more than 6 character",
-        }),
-        { status: 400 }
-      );
-    }
-    if (!email || !newPassword) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          message: "Email and new password are required",
+          message: "Email, OTP, and new password are required",
         }),
         { status: 400 }
       );
     }
 
-    const user = await UserModel.findOne({ email: decodeURIComponent(email) });
+    const user = await UserModel.findOne({
+      email,
+      resetVerifyCode: otp,
+      resetVerifyCodeExpiration: { $gt: Date.now() }, // Check if OTP is not expired
+    });
+
     if (!user) {
       return new Response(
-        JSON.stringify({ success: false, message: "User does not exist" }),
-        { status: 404 }
+        JSON.stringify({ success: false, message: "Invalid or expired OTP" }),
+        { status: 400 }
       );
     }
 
-    // Hash the new password before saving
+    // Hash the new password and update user
     user.password = await hashPassword(newPassword);
+    user.resetVerifyCode = "";
+    user.resetVerifyCodeExpiration = new Date();
     await user.save();
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        message: "Password updated successfully",
-      }),
+      JSON.stringify({ success: true, message: "Password reset successfully" }),
       { status: 200 }
     );
   } catch (error) {
-    console.log("An error occurred while updating the password:", error);
+    console.error("Error resetting password with OTP:", error);
     return new Response(
-      JSON.stringify({
-        success: false,
-        message: "Error while updating the password",
-      }),
+      JSON.stringify({ success: false, message: "Error resetting password" }),
       { status: 500 }
     );
   }
