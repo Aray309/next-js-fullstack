@@ -7,17 +7,18 @@ import {
   Row,
   Section,
   Text,
-  Button,
 } from "@react-email/components";
 
 interface VerificationEmailProps {
   username: string;
   otp: string;
+  message: string;
 }
 
 export default function VerificationEmail({
   username,
   otp,
+  message,
 }: VerificationEmailProps) {
   return (
     <Html lang="en" dir="ltr">
@@ -40,10 +41,7 @@ export default function VerificationEmail({
           <Heading as="h2">Hello {username},</Heading>
         </Row>
         <Row>
-          <Text>
-            Thank you for registering. Please use the following verification
-            code to complete your registration:
-          </Text>
+          <Text>{message}</Text>
         </Row>
         <Row>
           <Text>{otp}</Text>

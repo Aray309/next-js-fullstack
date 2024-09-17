@@ -61,10 +61,13 @@ export async function POST(request: Request) {
       await newUser.save();
     }
     // Send verification email
+    const emailMesage =
+      "Thank you for registering. Please use the following verificationcode to complete your registration";
     const emailResponse = await sendVerificationEmail(
       email,
       username,
-      verifyCode
+      verifyCode,
+      emailMesage
     );
     if (!emailResponse.success) {
       return Response.json(
