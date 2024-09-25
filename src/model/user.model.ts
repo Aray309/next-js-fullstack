@@ -28,6 +28,10 @@ export interface User extends Document {
   messages: Message[];
   resetVerifyCode: string;
   resetVerifyCodeExpiration: Date;
+  mobilePhone: string;
+  mobileVerificationCode: string;
+  mobileCodeExpiry: Date;
+  isMobileVerified: boolean;
 }
 
 const UserSchema: Schema<User> = new Schema({
@@ -72,6 +76,19 @@ const UserSchema: Schema<User> = new Schema({
   },
   resetVerifyCodeExpiration: {
     type: Date,
+  },
+  mobilePhone: {
+    type: String,
+  },
+  mobileVerificationCode: {
+    type: String,
+  },
+  mobileCodeExpiry: {
+    type: Date,
+  },
+  isMobileVerified: {
+    type: Boolean,
+    default: false,
   },
 });
  // Next Js is edge framework so we have to check everytime before connect
